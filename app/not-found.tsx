@@ -4,7 +4,7 @@ export default function Page() {
     return (
         <>
             <h1 className="text-2xl text-red-500">404:This is not found page</h1>
-            <Link href="/test-notfound">Go to about
+            <Link href="/text-notfound">Go to about
             </Link>
         </>
 
