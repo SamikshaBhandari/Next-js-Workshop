@@ -8,7 +8,8 @@ export default async function Page() {
 
     await waitForThreeSeconds();
 
-    throw new Error("executed error")
+    throw new Error("executed error");
+    
     return (
         <>
             <div>This is a about page.</div>
