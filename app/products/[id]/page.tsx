@@ -1,15 +1,19 @@
+import { notFound } from "next/navigation";
 import { ProductData } from "../page";
 import Link from 'next/link';
 
 export default async function Productpage({ params }: PageProps<"/products/[id]">) {
     const { id } = await params
     const Data = ProductData.find(d => d.id == id);
+    if (!Data) {
+        notFound();
+    }
+
     return (
         <>
             <div className="flex flex-col bg-gray-100 w-full justify-center items-center min-h-screen p-4">
                 <h1 className="text-3xl text-red-600 text-center font-bold mb-6">Product Details</h1>
                 <div className="bg-white rounded-xl p-5 w-110 shadow-sm border border-gray-200">
-
                     <img
                         src={Data?.image}
                         alt={Data?.Name}
@@ -24,7 +28,7 @@ export default async function Productpage({ params }: PageProps<"/products/[id]"
                             {Data?.desc}
                         </p>
                         <div className="flex justify-center pt-4">
-                            <Link href={`/products/${Data?.id}/not found`} className="bg-green-600 text-white font-bold px-6 py-2 rounded-lg hover:bg-green-700 border-none cursor-pointer">
+                            <Link href={`/products/${Data?.id}/`} className="bg-green-600 text-white font-bold px-6 py-2 rounded-lg hover:bg-green-700 border-none cursor-pointer">
                                 View Product
                             </Link>
                         </div>
