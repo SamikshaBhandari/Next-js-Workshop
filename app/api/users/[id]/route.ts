@@ -10,7 +10,6 @@ export async function GET(req: NextRequest) {
     return Response.json({ Message: "Hello World " });
 }
 
-
 export async function POST() {
     return Response.json({ hello: "world" },
         {
