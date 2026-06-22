@@ -9,6 +9,6 @@ export async function GET(req: Request, ctx: RouteContext<"/api/products/[id]">)
     if (!foundProduct)
         return Response.json(null, { status: 404 });
 
-    return Response.json({ foundProduct });
+    return Response.json(foundProduct);
 
 }
