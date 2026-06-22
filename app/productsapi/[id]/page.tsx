@@ -19,7 +19,7 @@ interface PageProps {
 export default async function SingleProductPage({ params }: PageProps) {
     const { id } = await params;
 
-    const res = await fetch(`https://fakestoreapi.com/products/${id}`);
+    const res = await fetch(`http://localhost:3000/api/products/${id}`);
     if (!res.ok) return notFound();
     const data = (await res.json()) as Product;
 

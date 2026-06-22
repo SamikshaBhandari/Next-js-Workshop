@@ -6,7 +6,7 @@ export async function GET(req: NextRequest) {
     const cookies_get = req.cookies.get("Hello friends")
 
     const cookie = await cookies()
-    cookie.set("hello", "samiksha",)
+    cookie.set("hello", "samiksha")
     return Response.json({ Message: "Hello World " });
 }
 
