@@ -47,7 +47,7 @@ export default async function ProductsCatalogPage() {
                                 </h2>
                                 <p className="text-gray-900 font-bold text-base">${item.price}</p>
 
-                                <p className="text-gray-500 text-[11px] mt-1.5 line-clamp-2 leading-relaxed">
+                                <p className="text-gray-500 text-[11px] mt-1.5 line-clamp-7 leading-relaxed">
                                     {item.description}
                                 </p>
                             </div>
