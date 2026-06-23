@@ -1,20 +1,24 @@
-// import React from "react";
-// import Image from "next/image";
-// export default function ProductCard({ data }: { data: Products }) {
+import Image from "next/image";
+import { Card, CardHeader } from "./ui/card";
 
-//     return (
-//         <>
-//             <h1>Product Pages</h1>
-//             <div>
-//                 <div>
-//                     <Image src={data.image} alt={"title"} width={500} height={300} unoptimized />
-//                     <h1>Title</h1>
-//                     <p>Price</p>
-//                 </div>
-//                 <div>Description</div>
-//                 <div>Category</div>
-//             </div>
-//         </>
-
-//     )
-// }
+export default function ShadcnProcuctCard({ data }: { data: TypeProducts }) {
+    return (
+        <Card className="max-w-md">
+            <Image
+                src={data.image}
+                alt={data.title}
+                width={500}
+                height={300}
+                unoptimized
+                className="size-12"
+            />
+            <div>
+                <h1>{data.title}</h1>
+                <p>{data.price}</p>
+            </div>
+            <div>
+                <p>{data.description}</p>
+            </div>
+        </Card>
+    );
+}
