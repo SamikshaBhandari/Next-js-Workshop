@@ -55,16 +55,31 @@ export async function GET() {
 
     }
 }
-
-export async function Update() {
-
+export async function PUT(req: NextRequest) {
     try {
+        const user = await req.json()
+        console.log("PUT method triggered")
 
+        if (!user.id) {
+            return NextResponse.json({
+                message: "User ID is required for updating data!"
+            }, { status: 400 })
+        }
 
+        await db.execute(
+            "UPDATE users SET email=?,username=?,password=? WHERE id =?",
+            [user.email, user.username, user.password, user.id]
+        )
+
+        return NextResponse.json({
+            message: 'Data updated successfully',
+            user
+        }, { status: 200 })
 
     } catch (error) {
-
-
-
+        return NextResponse.json({
+            message: "Error during updating user data",
+            error
+        }, { status: 500 })
     }
 }
