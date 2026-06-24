@@ -74,12 +74,55 @@ export async function PUT(req: NextRequest) {
         return NextResponse.json({
             message: 'Data updated successfully',
             user
-        }, { status: 200 })
+        },
+            {
+                status: 200
+            })
 
     } catch (error) {
         return NextResponse.json({
             message: "Error during updating user data",
             error
-        }, { status: 500 })
+        },
+            {
+                status: 500
+            })
     }
 }
+
+export async function DELETE(req: NextRequest) {
+    try {
+        const user = await req.json()
+        console.log("Delete method triggered")
+
+        if (!user.id) {
+            return NextResponse.json({
+                message: "User id is required for deleting data!"
+            }, { status: 400 })
+        }
+
+        await db.execute(
+            "DELETE FROM users WHERE id = ?",
+            [user.id]
+        )
+
+        return NextResponse.json({
+            message: 'User deleted successfully',
+            deletedUserId: user.id
+        },
+            {
+                status: 200
+            })
+
+    } catch (error) {
+        return NextResponse.json({
+            message: "Error during deleting user data",
+            error
+        },
+
+            {
+                status: 500
+            })
+    }
+}
+
