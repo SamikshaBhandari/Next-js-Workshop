@@ -14,17 +14,57 @@ export async function POST(req: NextRequest) {
 
         return NextResponse.json({
             message: 'Data inserted successfully',
+            user
         }, {
             status: 200
         })
     }
     catch (error) {
         return NextResponse.json({
-            message: "Dublicate user entry"
+            message: "Dublicate user entry",
+            error
         }
             , {
-                status: 500
-            })
+                status: 500,
+
+            }
+        )
     }
 }
 
+export async function GET() {
+    try {
+        const [user] = await db.execute('select * from users')
+        return NextResponse.json({
+            message: "users fetched ",
+            user
+        }, {
+            status: 200
+        }
+        )
+
+
+    } catch (error) {
+        return NextResponse.json({
+            Message: "Error during fetching user from database",
+            error
+        }, {
+            status: 500
+        }
+        )
+
+    }
+}
+
+export async function Update() {
+
+    try {
+
+
+
+    } catch (error) {
+
+
+
+    }
+}
