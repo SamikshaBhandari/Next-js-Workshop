@@ -1,36 +1,19 @@
-import react from 'react';
-import { cookies } from 'next/headers';
-import { NextRequest } from 'next/server';
+import React from "react"
+import { NextRequest, NextResponse } from "next/server"
+import { db } from "@/db"
 
-export async function GET(
-) {
-    return Response.json({ message: 'Hello World' })
-}
-
-export async function POST() {
+export async function POST(req: NextRequest) {
+    const user = await req.json()
 
 
-    return Response.json({ hello: "hello world from post method" },
+    console.log("post method triggered")
 
-        {
-            status: 200,
+    await db.execute("INSERT INTO users(email,username,password) VALUES (?,?,?)", [user.email, user.username, user.password])
 
-        }
+    return NextResponse.json({
+        message: 'Data inserted successfully',
 
-    );
-}
-export async function PUT() {
-    return Response.json({ Message: "Update successfully." },
-        {
-            status: 200,
-        }
-    );
-}
-
-export async function DELETE() {
-    return Response.json({ Message: "delete successfully" },
-        {
-            status: 200,
-        }
-    )
-}
+    }, {
+        status: 200
+    })
+} 
