@@ -75,3 +75,31 @@ export async function PUT(req: NextRequest, ctx: RouteContext) {
             });
     }
 }
+
+export async function DELETE(req: NextRequest, ctx: RouteContext) {
+
+    try {
+        const { id } = await ctx.params;
+        await db.execute("DELETE FROM products WHERE id = ?", [id]);
+        return NextResponse.json({
+            message: `Product with id ${id} deleted successfully`
+        },
+
+            {
+                status: 200
+
+            });
+    }
+
+    catch (error) {
+        return NextResponse.json({
+            message: "Error during delete execution",
+            error
+        },
+
+            {
+                status: 500
+
+            });
+    }
+}
