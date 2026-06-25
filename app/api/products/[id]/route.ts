@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
-import { db } from '@/db';
-
+import { getSingleProductFromDB } from "@/services/productServices";
+import { updateProductInDB } from "@/services/productServices";
+import { deleteProductFromDB } from "@/services/productServices";
 
 interface RouteContext {
     params: Promise<{ id: string }>
@@ -8,30 +9,24 @@ interface RouteContext {
 
 export async function GET(req: NextRequest, ctx: RouteContext) {
     try {
-
         const { id } = await ctx.params;
-        const [product]: any = await db.execute("select * from products WHERE id=?", [id]);
+
+        const product: any = await getSingleProductFromDB(id);
         if (product.length === 0) {
-            return NextResponse.json(null, {
-                status: 404
-            })
+            return NextResponse.json(null, { status: 404 });
         }
 
-        return NextResponse.json(product[0],
-            {
-                status: 200
-            }
-        )
-    }
-
-    catch (error) {
-
+        return NextResponse.json(product[0], { status: 200 });
+    } catch (error) {
         return NextResponse.json({
             message: "error during get mapping execution",
             error
-        }, {
-            status: 500
-        })
+        },
+
+            {
+                status: 500
+
+            });
     }
 }
 
@@ -41,20 +36,10 @@ export async function PUT(req: NextRequest, ctx: RouteContext) {
         const { id } = await ctx.params;
         const product = await req.json();
 
-        const query = "UPDATE products SET title = ?, price = ?, description = ?, category = ?, image = ?, rating = ? WHERE id = ?";
-
-        await db.execute(query, [
-            product.title,
-            product.price,
-            product.description,
-            product.category,
-            product.image,
-            JSON.stringify(product.rating),
-            id
-        ]);
+        await updateProductInDB(id, product);
 
         return NextResponse.json({
-            message: "Product updated successfully",
+            message: "Product updated successfully using serivce layer",
             product
         },
 
@@ -80,9 +65,10 @@ export async function DELETE(req: NextRequest, ctx: RouteContext) {
 
     try {
         const { id } = await ctx.params;
-        await db.execute("DELETE FROM products WHERE id = ?", [id]);
+        await deleteProductFromDB(id);
+
         return NextResponse.json({
-            message: `Product with id ${id} deleted successfully`
+            message: `Product with id ${id} deleted successfully using service layer`
         },
 
             {
