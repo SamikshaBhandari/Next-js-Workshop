@@ -38,7 +38,9 @@ export async function getSingleProductFromDB(id: string) {
 
     try {
 
+
         const [product]: any = await db.execute("SELECT * FROM products WHERE id = ?", [id]);
+        return product;
     } catch (error) {
         throw error;
 

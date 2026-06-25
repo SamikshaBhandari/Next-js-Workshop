@@ -7,7 +7,7 @@ interface RouteContext {
     params: Promise<{ id: string }>
 }
 
-export async function GET(req: NextRequest, ctx: RouteContext) {
+export async function GET(ctx: RouteContext) {
     try {
         const { id } = await ctx.params;
 
@@ -61,7 +61,7 @@ export async function PUT(req: NextRequest, ctx: RouteContext) {
     }
 }
 
-export async function DELETE(req: NextRequest, ctx: RouteContext) {
+export async function DELETE(ctx: RouteContext) {
 
     try {
         const { id } = await ctx.params;
