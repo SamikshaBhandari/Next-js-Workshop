@@ -20,3 +20,4 @@ export async function createUserInDB(newUser: TypeUser) {
         throw error;
     }
 }
+
