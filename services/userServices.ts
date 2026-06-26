@@ -20,4 +20,16 @@ export async function createUserInDB(newUser: TypeUser) {
         throw error;
     }
 }
+export async function getUserByEmail(newLogin: LoginTypeUser) {
+    try {
+        const [validUser] = await db.execute("select * from users where email=?",
+            [newLogin.email]
+        )
+        return validUser;
+    } catch (error) {
+        throw error;
+    }
+
+}
+
 
