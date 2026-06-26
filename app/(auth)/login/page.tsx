@@ -20,7 +20,7 @@ export default function LoginPage() {
                     <h1 className="text-3xl font-bold text-violet-600 mb-1">
                         Login Page
                     </h1>
-                    <p className="text-sm text-gray-500">
+                    <p className="text-sm text-gray-o500">
                         Welcome back! Please enter your details
                     </p>
                 </div>
